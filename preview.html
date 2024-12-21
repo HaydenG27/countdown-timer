@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Seeing You</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            color: #333;
+            margin: 0;
+            padding: 10px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            font-size: 1.5em;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: block; width: fit-content;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 10px auto;
+        }
+        .quote {
+            font-style: italic;
+            margin: 20px auto;
+            font-size: 1.2em;
+            padding: 10px;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown to Seeing You ❤️</h1>
+    <div id="countdowns"></div>
+    <div id="daily-quote" class="quote"></div>
+    <div class="message">I can't wait to see you!</div>
+
+    <script>
+        // Set the dates you're counting down to
+        let countdownDates = [
+            { date: new Date('2024-12-31T11:00:00'), label: "Julia's Birthday!!!" },
+            { date: new Date('2025-01-18T09:00:00'), label: "January Visit" },
+            { date: new Date('2025-02-14T18:00:00'), label: "Valentine's Day" }
+        ];
+
+        // Quotes Repository
+        const quotes = [
+            "Each day apart makes me appreciate our time together even more",
+            "Looking forward to the next time I get to see your smile :)",
+            "Thinking of you brightens up my day",
+            "Counting down to the fun we'll have when we're together again",
+            "I hope today brings a little joy as we get closer to seeing each other",
+            "The days may feel long, but the thought of seeing you makes it worth it",
+            "Every moment apart builds the excitement of being together",
+            "Even the smallest moments with you are worth the wait",
+            "Anticipation makes our time together even sweeter",
+            "Just knowing I'll see you soon keeps me going",
+            "The countdown makes every passing second feel special",
+            "Our daily talks are the highlight of my day, every day",
+            "Distance only strengthens my appreciation for you",
+            "The thought of seeing you again puts a smile on my face",
+            "The wait is hard, but so worth it knowing you're at the end of it"
+        ];
+
+        function updateCountdowns() {
+            const now = new Date();
+            const container = document.getElementById('countdowns');
+            container.innerHTML = '';
+
+            // Filter out past events
+            countdownDates = countdownDates.filter(event => event.date > now);
+
+            countdownDates.sort((a, b) => a.date - b.date).forEach(event => {
+                const diff = event.date - now;
+                let countdownText;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                countdownText = `<div class='countdown'>${event.label}: ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds</div>`;
+                container.innerHTML += countdownText;
+            });
+        }
+
+        function updateDailyQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length); // Randomly pick a quote
+            const quote = quotes[randomIndex];
+            document.getElementById('daily-quote').textContent = quote;
+        }
+
+        updateCountdowns(); // Initial call
+        updateDailyQuote(); // Update the daily quote
+        setInterval(updateCountdowns, 1000); // Update every second
+    </script>
+</body>
+</html>
